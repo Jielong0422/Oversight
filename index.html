@@ -4,9 +4,550 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI监察审计 - 技术-工具-思想，碰撞与分享</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- 引入图标库（无需额外下载，联网即可显示，本地测试不影响） -->
     <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 全局重置与基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", "PingFang SC", "Helvetica Neue", sans-serif;
+        }
+
+        :root {
+            --primary-color: #2c5282; /* 主色调-深蓝 */
+            --secondary-color: #3182ce; /* 次要色调-浅蓝 */
+            --accent-color: #e53e3e; /* 强调色-红 */
+            --text-dark: #2d3748; /* 深色文本 */
+            --text-gray: #718096; /* 灰色文本 */
+            --bg-light: #f7fafc; /* 浅色背景 */
+            --bg-white: #ffffff; /* 白色背景 */
+            --border-color: #e2e8f0; /* 边框色 */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title i {
+            font-size: 24px;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .section-title p {
+            font-size: 16px;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .btn:hover {
+            background-color: #1a365d;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+            margin-left: 16px;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-light);
+        }
+
+        /* 头部导航 */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--bg-white);
+            box-shadow: var(--shadow-sm);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .header.scroll {
+            padding: 8px 0;
+            background-color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--primary-color);
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav a {
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .nav a.active {
+            color: var(--primary-color);
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav a:hover::after,
+        .nav a.active::after {
+            width: 100%;
+        }
+
+        .menu-btn {
+            display: none;
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* 横幅区域 */
+        .banner {
+            height: 100vh;
+            background: linear-gradient(135deg, #2c5282 0%, #3182ce 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        .banner-content h2 {
+            font-size: 48px;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .banner-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        /* 资讯聚合板块 */
+        .news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
+        }
+
+        .news-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .news-card h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .news-list li {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-list li:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .news-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        .news-list a:hover {
+            color: var(--secondary-color);
+        }
+
+        .news-list span {
+            font-size: 14px;
+            color: var(--text-gray);
+            white-space: nowrap;
+        }
+
+        /* 工具库板块 */
+        .tools-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .tool-card {
+            background-color: var(--bg-white);
+            border-radius: var(--radius-lg);
+            padding: 40px 24px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-card i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 24px;
+        }
+
+        .tool-card h3 {
+            font-size: 20px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .tool-card p {
+            color: var(--text-gray);
+            margin-bottom: 24px;
+            min-height: 60px;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .tool-btn:hover {
+            background-color: #1a365d;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .add-tool {
+            border-top-color: var(--accent-color);
+        }
+
+        .add-tool i {
+            color: var(--accent-color);
+        }
+
+        .add-tool .tool-btn {
+            background-color: var(--accent-color);
+        }
+
+        .add-tool .tool-btn:hover {
+            background-color: #c53030;
+        }
+
+        /* 需求收集板块 */
+        .demand {
+            background-color: var(--bg-white);
+        }
+
+        .demand-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-light);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .demand-form {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-item label {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-item input,
+        .form-item textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 16px;
+            transition: var(--transition);
+            resize: none;
+        }
+
+        .form-item input:focus,
+        .form-item textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+        }
+
+        .form-btn {
+            padding: 14px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-btn:hover {
+            background-color: #1a365d;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 关于我们板块 */
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .about-content p {
+            font-size: 18px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .about-content p i {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-top: 4px;
+        }
+
+        .about-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 页脚 */
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 32px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+
+            .nav {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: var(--bg-white);
+                flex-direction: column;
+                padding: 24px;
+                box-shadow: var(--shadow-md);
+                transform: translateX(-100%);
+                opacity: 0;
+                pointer-events: none;
+                transition: var(--transition);
+            }
+
+            .nav.show {
+                transform: translateX(0);
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .banner-content h2 {
+                font-size: 32px;
+            }
+
+            .banner-content p {
+                font-size: 18px;
+            }
+
+            .btn {
+                display: block;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title h2 {
+                font-size: 28px;
+            }
+
+            .news-container,
+            .tools-container {
+                grid-template-columns: 1fr;
+            }
+
+            .demand-container,
+            .about-content {
+                padding: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .banner {
+                height: auto;
+                padding: 100px 20px 80px;
+            }
+
+            .banner-content h2 {
+                font-size: 28px;
+            }
+
+            .news-card,
+            .tool-card {
+                padding: 24px 16px;
+            }
+
+            .section-title {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- 顶部导航栏 -->
@@ -34,9 +575,11 @@
     <section class="banner" id="home">
         <div class="container banner-content">
             <h2>聚焦行业动态 · 聚合实用工具</h2>
-            <p>一站式资讯与工具服务平台，为你打造高效、专业的工作辅助体系</p>
-            <a href="#news" class="btn">进入资讯聚合</a>
-            <a href="#tools" class="btn btn-secondary">探索工具库</a>
+            <p>一站式资讯与工具服务平台，为你打造高效、专业的工作辅助体系，赋能监察审计领域全流程工作</p>
+            <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+                <a href="#news" class="btn">进入资讯聚合</a>
+                <a href="#tools" class="btn btn-secondary">探索工具库</a>
+            </div>
         </div>
     </section>
 
@@ -46,7 +589,7 @@
             <div class="section-title">
                 <i class="fas fa-newspaper"></i>
                 <h2>资讯聚合</h2>
-                <p>按自定义规则聚合国内外主流网站核心内容，实时更新</p>
+                <p>按自定义规则聚合国内外主流网站核心内容，实时更新，精准捕捉监察审计领域关键信息</p>
             </div>
             <div class="news-container">
                 <!-- 国内主流资讯 -->
@@ -81,35 +624,35 @@
             <div class="section-title">
                 <i class="fas fa-wrench"></i>
                 <h2>工具库</h2>
-                <p>官方精选实用工具+持续更新，满足各类工作需求</p>
+                <p>官方精选实用工具+持续更新，覆盖数据整理、线索筛查、可视化等多场景，满足各类工作需求</p>
             </div>
             <div class="tools-container">
                 <!-- 官方工具1 -->
                 <div class="tool-card">
                     <i class="fas fa-file-excel"></i>
                     <h3>审计数据整理工具</h3>
-                    <p>快速整理审计台账、清洗数据，支持多格式导出</p>
+                    <p>快速整理审计台账、清洗数据，支持Excel/CSV/PDF多格式导出，提升数据处理效率80%</p>
                     <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
                 </div>
                 <!-- 官方工具2 -->
                 <div class="tool-card">
                     <i class="fas fa-search"></i>
                     <h3>监察线索筛查工具</h3>
-                    <p>按关键词/规则筛查线索，提升线索识别效率</p>
+                    <p>按关键词/规则智能筛查线索，支持批量导入数据，提升线索识别效率与精准度</p>
                     <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
                 </div>
                 <!-- 官方工具3 -->
                 <div class="tool-card">
                     <i class="fas fa-chart-pie"></i>
                     <h3>数据可视化工具</h3>
-                    <p>将监察/审计数据转为图表，直观展示分析结果</p>
+                    <p>将监察/审计数据转为多维度图表，支持自定义样式，直观展示分析结果便于汇报</p>
                     <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
                 </div>
-                <!-- 工具占位符（后续添加工具直接复制上面的tool-card即可） -->
+                <!-- 工具占位符 -->
                 <div class="tool-card add-tool">
                     <i class="fas fa-plus"></i>
                     <h3>更多工具</h3>
-                    <p>持续更新中，也可提交你的工具需求</p>
+                    <p>持续更新中，也可提交你的工具需求，我们将优先开发高频需求工具</p>
                     <a href="#demand" class="tool-btn">提交需求 <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
@@ -122,7 +665,7 @@
             <div class="section-title">
                 <i class="fas fa-comment-dots"></i>
                 <h2>工具需求收集</h2>
-                <p>你需要什么实用工具？告诉我们，我们来开发/整合</p>
+                <p>你需要什么实用工具？告诉我们，我们来开发/整合，让工具更贴合你的工作场景</p>
             </div>
             <div class="demand-container">
                 <form class="demand-form" id="demandForm">
@@ -132,7 +675,7 @@
                     </div>
                     <div class="form-item">
                         <label for="toolDesc"><i class="fas fa-file-alt"></i> 需求描述</label>
-                        <textarea id="toolDesc" rows="5" placeholder="请详细描述工具功能、使用场景、期望效果等" required></textarea>
+                        <textarea id="toolDesc" rows="5" placeholder="请详细描述工具功能、使用场景、期望效果等，越详细越便于我们开发" required></textarea>
                     </div>
                     <div class="form-item">
                         <label for="contact"><i class="fas fa-contact-card"></i> 联系方式</label>
@@ -150,13 +693,13 @@
             <div class="section-title">
                 <i class="fas fa-info-circle"></i>
                 <h2>关于我们</h2>
-                <p>监察天下 - 专注于监察审计领域的资讯与工具服务</p>
+                <p>监察天下 - 专注于监察审计领域的资讯与工具服务，致力于提升行业工作效率</p>
             </div>
             <div class="about-content">
-                <p><i class="fas fa-heart"></i> 核心定位：为监察、审计、风控等领域从业者提供一站式资讯聚合与实用工具服务</p>
-                <p><i class="fas fa-update"></i> 资讯更新：按自定义规则聚合国内外主流网站核心内容，确保信息实时、准确</p>
-                <p><i class="fas fa-tools"></i> 工具开发：基于用户实际需求，开发/整合高实用性工具，提升工作效率</p>
-                <p><i class="fas fa-handshake"></i> 发展理念：以用户需求为核心，持续优化产品，打造专业、高效的行业服务平台</p>
+                <p><i class="fas fa-heart"></i> 核心定位：为监察、审计、风控等领域从业者提供一站式资讯聚合与实用工具服务，解决工作中的信息不对称与效率瓶颈问题</p>
+                <p><i class="fas fa-update"></i> 资讯更新：按自定义规则聚合国内外主流网站核心内容，7×24小时实时更新，确保信息实时、准确、全面</p>
+                <p><i class="fas fa-tools"></i> 工具开发：基于用户实际需求与行业痛点，开发/整合高实用性工具，经一线从业者验证后上线，真正提升工作效率</p>
+                <p><i class="fas fa-handshake"></i> 发展理念：以用户需求为核心，持续优化产品体验，打造专业、高效、可信赖的行业服务平台，与从业者共同成长</p>
             </div>
         </div>
     </section>
@@ -164,7 +707,7 @@
     <!-- 底部版权 -->
     <footer class="footer">
         <div class="container">
-            <p>© 2026 监察天下 版权所有 | 本地测试版本，未上线运营</p>
+            <p>© 2026 监察天下 版权所有 | 本地测试版本，未上线运营 | 专注监察审计领域，赋能行业发展</p>
         </div>
     </footer>
 
@@ -174,47 +717,106 @@
         const nav = document.getElementById('nav');
         menuBtn.onclick = function() {
             nav.classList.toggle('show');
-            this.innerHTML = nav.classList.contains('show') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            this.innerHTML = nav.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
         }
 
         // 2. 导航栏滚动样式变化
-        window.onscroll = function() {
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
             if (document.documentElement.scrollTop > 50) {
-                document.querySelector('.header').classList.add('scroll');
+                header.classList.add('scroll');
             } else {
-                document.querySelector('.header').classList.remove('scroll');
+                header.classList.remove('scroll');
             }
-        }
+            // 滚动时更新导航激活状态
+            updateNavActive();
+        });
 
         // 3. 平滑滚动（点击导航跳转到对应板块）
         document.querySelectorAll('.nav a').forEach(link => {
-            link.onclick = function(e) {
+            link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
-                document.querySelector(targetId).scrollIntoView({
+                const targetElement = document.querySelector(targetId);
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                // 计算滚动位置（避开固定导航栏）
+                const scrollTop = targetElement.offsetTop - headerHeight + 10;
+                
+                window.scrollTo({
+                    top: scrollTop,
                     behavior: 'smooth'
                 });
+
                 // 手机端点击后收起菜单
                 nav.classList.remove('show');
                 menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                
                 // 导航栏激活状态切换
                 document.querySelectorAll('.nav a').forEach(item => item.classList.remove('active'));
                 this.classList.add('active');
-            }
+            });
         });
 
-        // 4. 需求表单提交（本地测试提示，上线后替换为后端接口）
+        // 4. 滚动时自动更新导航激活状态
+        function updateNavActive() {
+            const sections = document.querySelectorAll('.section, .banner');
+            const navLinks = document.querySelectorAll('.nav a');
+            let currentSection = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const scrollPos = document.documentElement.scrollTop;
+                
+                if (scrollPos >= sectionTop - 100 && scrollPos < sectionTop + sectionHeight - 100) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // 5. 需求表单提交（增强版提示）
         const demandForm = document.getElementById('demandForm');
-        demandForm.onsubmit = function(e) {
+        demandForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            // 获取表单值（本地测试用，上线后传给后端）
-            const toolName = document.getElementById('toolName').value;
-            const toolDesc = document.getElementById('toolDesc').value;
+            
+            // 获取表单值
+            const toolName = document.getElementById('toolName').value.trim();
+            const toolDesc = document.getElementById('toolDesc').value.trim();
+            const contact = document.getElementById('contact').value.trim();
+
+            // 简单验证
+            if (!toolName || !toolDesc) {
+                alert('请填写工具名称和需求描述！');
+                return;
+            }
+
+            // 构建提示信息
+            let alertMsg = `需求提交成功！🎉\n\n`;
+            alertMsg += `工具名称：${toolName}\n`;
+            alertMsg += `需求描述：${toolDesc.substring(0, 50)}${toolDesc.length > 50 ? '...' : ''}\n`;
+            if (contact) {
+                alertMsg += `联系方式：${contact}\n`;
+            }
+            alertMsg += `\n我们会在1-3个工作日内评估需求，并通过预留联系方式反馈进度～`;
+
             // 提交成功提示
-            alert(`需求提交成功！\n工具名称：${toolName}\n需求描述：${toolDesc}\n我们会尽快处理并反馈～`);
+            alert(alertMsg);
+            
             // 重置表单
             this.reset();
-        }
+        });
+
+        // 6. 初始化导航激活状态
+        window.addEventListener('load', updateNavActive);
     </script>
 </body>
 </html>
