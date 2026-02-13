@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI监察审计 - 技术-工具-思想，碰撞与分享</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入图标库（无需额外下载，联网即可显示，本地测试不影响） -->
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-shield-halved"></i>
+                <h1>Oversight</h1>
+            </div>
+            <nav class="nav" id="nav">
+                <a href="#home" class="active">首页</a>
+                <a href="#news">资讯聚合</a>
+                <a href="#tools">工具库</a>
+                <a href="#demand">需求收集</a>
+                <a href="#about">关于我们</a>
+            </nav>
+            <!-- 手机端菜单按钮 -->
+            <div class="menu-btn" id="menuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- 首页横幅 -->
+    <section class="banner" id="home">
+        <div class="container banner-content">
+            <h2>聚焦行业动态 · 聚合实用工具</h2>
+            <p>一站式资讯与工具服务平台，为你打造高效、专业的工作辅助体系</p>
+            <a href="#news" class="btn">进入资讯聚合</a>
+            <a href="#tools" class="btn btn-secondary">探索工具库</a>
+        </div>
+    </section>
+
+    <!-- 资讯聚合板块 -->
+    <section class="news section" id="news">
+        <div class="container">
+            <div class="section-title">
+                <i class="fas fa-newspaper"></i>
+                <h2>资讯聚合</h2>
+                <p>按自定义规则聚合国内外主流网站核心内容，实时更新</p>
+            </div>
+            <div class="news-container">
+                <!-- 国内主流资讯 -->
+                <div class="news-card">
+                    <h3><i class="fas fa-globe-asia"></i> 国内主流资讯</h3>
+                    <ul class="news-list">
+                        <li><a href="#">【时政】XXX会议召开，部署最新工作要求 <span>2026-02-01</span></a></li>
+                        <li><a href="#">【行业】监察审计领域最新政策解读，这些要点需关注 <span>2026-02-01</span></a></li>
+                        <li><a href="#">【资讯】国内主流平台发布行业报告，市场趋势分析 <span>2026-01-31</span></a></li>
+                        <li><a href="#">【热点】民生领域监察动态，多地推出创新监管措施 <span>2026-01-31</span></a></li>
+                        <li><a href="#">更多国内资讯 <i class="fas fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- 国外主流资讯 -->
+                <div class="news-card">
+                    <h3><i class="fas fa-globe-americas"></i> 国外主流资讯</h3>
+                    <ul class="news-list">
+                        <li><a href="#">【国际】海外监察审计行业最新发展趋势与案例 <span>2026-02-01</span></a></li>
+                        <li><a href="#">【政策】国外相关监管政策更新，对跨境业务的影响 <span>2026-02-01</span></a></li>
+                        <li><a href="#">【资讯】国际组织发布全球监察体系评估报告 <span>2026-01-31</span></a></li>
+                        <li><a href="#">【技术】海外实用监察工具与技术应用分享 <span>2026-01-30</span></a></li>
+                        <li><a href="#">更多国外资讯 <i class="fas fa-angle-right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工具库板块 -->
+    <section class="tools section" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <i class="fas fa-wrench"></i>
+                <h2>工具库</h2>
+                <p>官方精选实用工具+持续更新，满足各类工作需求</p>
+            </div>
+            <div class="tools-container">
+                <!-- 官方工具1 -->
+                <div class="tool-card">
+                    <i class="fas fa-file-excel"></i>
+                    <h3>审计数据整理工具</h3>
+                    <p>快速整理审计台账、清洗数据，支持多格式导出</p>
+                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                </div>
+                <!-- 官方工具2 -->
+                <div class="tool-card">
+                    <i class="fas fa-search"></i>
+                    <h3>监察线索筛查工具</h3>
+                    <p>按关键词/规则筛查线索，提升线索识别效率</p>
+                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                </div>
+                <!-- 官方工具3 -->
+                <div class="tool-card">
+                    <i class="fas fa-chart-pie"></i>
+                    <h3>数据可视化工具</h3>
+                    <p>将监察/审计数据转为图表，直观展示分析结果</p>
+                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                </div>
+                <!-- 工具占位符（后续添加工具直接复制上面的tool-card即可） -->
+                <div class="tool-card add-tool">
+                    <i class="fas fa-plus"></i>
+                    <h3>更多工具</h3>
+                    <p>持续更新中，也可提交你的工具需求</p>
+                    <a href="#demand" class="tool-btn">提交需求 <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 需求收集板块 -->
+    <section class="demand section" id="demand">
+        <div class="container">
+            <div class="section-title">
+                <i class="fas fa-comment-dots"></i>
+                <h2>工具需求收集</h2>
+                <p>你需要什么实用工具？告诉我们，我们来开发/整合</p>
+            </div>
+            <div class="demand-container">
+                <form class="demand-form" id="demandForm">
+                    <div class="form-item">
+                        <label for="toolName"><i class="fas fa-tag"></i> 工具名称</label>
+                        <input type="text" id="toolName" placeholder="请输入你需要的工具名称，如：XX数据统计工具" required>
+                    </div>
+                    <div class="form-item">
+                        <label for="toolDesc"><i class="fas fa-file-alt"></i> 需求描述</label>
+                        <textarea id="toolDesc" rows="5" placeholder="请详细描述工具功能、使用场景、期望效果等" required></textarea>
+                    </div>
+                    <div class="form-item">
+                        <label for="contact"><i class="fas fa-contact-card"></i> 联系方式</label>
+                        <input type="text" id="contact" placeholder="微信/QQ/手机号，方便我们反馈进度（可选）">
+                    </div>
+                    <button type="submit" class="form-btn"><i class="fas fa-paper-plane"></i> 提交需求</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我们板块 -->
+    <section class="about section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <i class="fas fa-info-circle"></i>
+                <h2>关于我们</h2>
+                <p>监察天下 - 专注于监察审计领域的资讯与工具服务</p>
+            </div>
+            <div class="about-content">
+                <p><i class="fas fa-heart"></i> 核心定位：为监察、审计、风控等领域从业者提供一站式资讯聚合与实用工具服务</p>
+                <p><i class="fas fa-update"></i> 资讯更新：按自定义规则聚合国内外主流网站核心内容，确保信息实时、准确</p>
+                <p><i class="fas fa-tools"></i> 工具开发：基于用户实际需求，开发/整合高实用性工具，提升工作效率</p>
+                <p><i class="fas fa-handshake"></i> 发展理念：以用户需求为核心，持续优化产品，打造专业、高效的行业服务平台</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部版权 -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 监察天下 版权所有 | 本地测试版本，未上线运营</p>
+        </div>
+    </footer>
+
+    <script>
+        // 1. 手机端菜单展开/收起
+        const menuBtn = document.getElementById('menuBtn');
+        const nav = document.getElementById('nav');
+        menuBtn.onclick = function() {
+            nav.classList.toggle('show');
+            this.innerHTML = nav.classList.contains('show') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        // 2. 导航栏滚动样式变化
+        window.onscroll = function() {
+            if (document.documentElement.scrollTop > 50) {
+                document.querySelector('.header').classList.add('scroll');
+            } else {
+                document.querySelector('.header').classList.remove('scroll');
+            }
+        }
+
+        // 3. 平滑滚动（点击导航跳转到对应板块）
+        document.querySelectorAll('.nav a').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                // 手机端点击后收起菜单
+                nav.classList.remove('show');
+                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                // 导航栏激活状态切换
+                document.querySelectorAll('.nav a').forEach(item => item.classList.remove('active'));
+                this.classList.add('active');
+            }
+        });
+
+        // 4. 需求表单提交（本地测试提示，上线后替换为后端接口）
+        const demandForm = document.getElementById('demandForm');
+        demandForm.onsubmit = function(e) {
+            e.preventDefault();
+            // 获取表单值（本地测试用，上线后传给后端）
+            const toolName = document.getElementById('toolName').value;
+            const toolDesc = document.getElementById('toolDesc').value;
+            // 提交成功提示
+            alert(`需求提交成功！\n工具名称：${toolName}\n需求描述：${toolDesc}\n我们会尽快处理并反馈～`);
+            // 重置表单
+            this.reset();
+        }
+    </script>
+</body>
+</html>
