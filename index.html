@@ -405,6 +405,14 @@
             box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
         }
 
+        /* 表单错误提示 */
+        .form-item .error-tip {
+            color: var(--accent-color);
+            font-size: 14px;
+            display: none;
+            margin-top: 4px;
+        }
+
         .form-btn {
             padding: 14px;
             background-color: var(--primary-color);
@@ -546,6 +554,13 @@
             .section-title {
                 margin-bottom: 40px;
             }
+
+            /* 小屏表单适配 */
+            .form-item input,
+            .form-item textarea {
+                font-size: 14px;
+                padding: 10px 14px;
+            }
         }
     </style>
 </head>
@@ -632,28 +647,28 @@
                     <i class="fas fa-file-excel"></i>
                     <h3>审计数据整理工具</h3>
                     <p>快速整理审计台账、清洗数据，支持Excel/CSV/PDF多格式导出，提升数据处理效率80%</p>
-                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                    <a href="#" class="tool-btn" id="toolDownload1">立即下载 <i class="fas fa-download"></i></a>
                 </div>
                 <!-- 官方工具2 -->
                 <div class="tool-card">
                     <i class="fas fa-search"></i>
                     <h3>监察线索筛查工具</h3>
                     <p>按关键词/规则智能筛查线索，支持批量导入数据，提升线索识别效率与精准度</p>
-                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                    <a href="#" class="tool-btn" id="toolDownload2">立即下载 <i class="fas fa-download"></i></a>
                 </div>
                 <!-- 官方工具3 -->
                 <div class="tool-card">
                     <i class="fas fa-chart-pie"></i>
                     <h3>数据可视化工具</h3>
                     <p>将监察/审计数据转为多维度图表，支持自定义样式，直观展示分析结果便于汇报</p>
-                    <a href="#" class="tool-btn">立即下载 <i class="fas fa-download"></i></a>
+                    <a href="#" class="tool-btn" id="toolDownload3">立即下载 <i class="fas fa-download"></i></a>
                 </div>
                 <!-- 工具占位符 -->
                 <div class="tool-card add-tool">
                     <i class="fas fa-plus"></i>
                     <h3>更多工具</h3>
-                    <p>持续更新中，也可提交你的工具需求，我们将优先开发高频需求工具</p>
-                    <a href="#demand" class="tool-btn">提交需求 <i class="fas fa-arrow-right"></i></a>
+                    <p>提交工具需求，我们将评估并开发适配的实用工具，丰富工具库生态</p>
+                    <a href="#demand" class="tool-btn">提交需求 <i class="fas fa-paper-plane"></i></a>
                 </div>
             </div>
         </div>
@@ -663,25 +678,28 @@
     <section class="demand section" id="demand">
         <div class="container">
             <div class="section-title">
-                <i class="fas fa-comment-dots"></i>
-                <h2>工具需求收集</h2>
-                <p>你需要什么实用工具？告诉我们，我们来开发/整合，让工具更贴合你的工作场景</p>
+                <i class="fas fa-file-alt"></i>
+                <h2>需求收集</h2>
+                <p>如果你有定制化工具需求、现有工具优化建议，欢迎提交，我们将定期评估并反馈</p>
             </div>
             <div class="demand-container">
                 <form class="demand-form" id="demandForm">
                     <div class="form-item">
-                        <label for="toolName"><i class="fas fa-tag"></i> 工具名称</label>
-                        <input type="text" id="toolName" placeholder="请输入你需要的工具名称，如：XX数据统计工具" required>
+                        <label for="toolName"><i class="fas fa-toolbox"></i> 工具名称</label>
+                        <input type="text" id="toolName" placeholder="请填写需要定制/新增的工具名称" required>
+                        <div class="error-tip" id="toolNameTip"></div>
                     </div>
                     <div class="form-item">
                         <label for="toolDesc"><i class="fas fa-file-alt"></i> 需求描述</label>
-                        <textarea id="toolDesc" rows="5" placeholder="请详细描述工具功能、使用场景、期望效果等，越详细越便于我们开发" required></textarea>
+                        <textarea id="toolDesc" rows="6" placeholder="请详细描述工具需求、使用场景、功能期望等（最多500字）" required></textarea>
+                        <div class="error-tip" id="toolDescTip"></div>
                     </div>
                     <div class="form-item">
-                        <label for="contact"><i class="fas fa-contact-card"></i> 联系方式</label>
-                        <input type="text" id="contact" placeholder="微信/QQ/手机号，方便我们反馈进度（可选）">
+                        <label for="contact"><i class="fas fa-phone"></i> 联系方式（选填）</label>
+                        <input type="text" id="contact" placeholder="请填写手机号/邮箱，方便我们反馈进度">
+                        <div class="error-tip" id="contactTip"></div>
                     </div>
-                    <button type="submit" class="form-btn"><i class="fas fa-paper-plane"></i> 提交需求</button>
+                    <button type="submit" class="form-btn">提交需求 <i class="fas fa-paper-plane"></i></button>
                 </form>
             </div>
         </div>
@@ -693,130 +711,218 @@
             <div class="section-title">
                 <i class="fas fa-info-circle"></i>
                 <h2>关于我们</h2>
-                <p>监察天下 - 专注于监察审计领域的资讯与工具服务，致力于提升行业工作效率</p>
+                <p>专注于监察审计领域的资讯与工具服务，致力于用技术提升工作效率与专业价值</p>
             </div>
             <div class="about-content">
-                <p><i class="fas fa-heart"></i> 核心定位：为监察、审计、风控等领域从业者提供一站式资讯聚合与实用工具服务，解决工作中的信息不对称与效率瓶颈问题</p>
-                <p><i class="fas fa-update"></i> 资讯更新：按自定义规则聚合国内外主流网站核心内容，7×24小时实时更新，确保信息实时、准确、全面</p>
-                <p><i class="fas fa-tools"></i> 工具开发：基于用户实际需求与行业痛点，开发/整合高实用性工具，经一线从业者验证后上线，真正提升工作效率</p>
-                <p><i class="fas fa-handshake"></i> 发展理念：以用户需求为核心，持续优化产品体验，打造专业、高效、可信赖的行业服务平台，与从业者共同成长</p>
+                <p><i class="fas fa-check-circle"></i> 我们的使命：为监察审计从业者提供高效、精准、实用的资讯与工具支持，降低工作成本，提升监督效能。</p>
+                <p><i class="fas fa-check-circle"></i> 我们的优势：深耕行业多年，兼具技术研发与业务理解能力，能精准匹配行业需求，快速响应工具开发与迭代。</p>
+                <p><i class="fas fa-check-circle"></i> 我们的承诺：所有工具均经过严格测试，资讯内容实时更新、精准筛选，保障信息与工具的实用性和可靠性。</p>
             </div>
         </div>
     </section>
 
-    <!-- 底部版权 -->
+    <!-- 页脚 -->
     <footer class="footer">
         <div class="container">
-            <p>© 2026 Oversight 版权所有 | 本地测试版本，未上线运营 | 专注监察审计领域，让监督创造更大价值</p>
+            <p>© 2026 AI监察审计平台 版权所有 | 专注监察审计领域的资讯与工具服务</p>
         </div>
     </footer>
 
     <script>
-        // 1. 手机端菜单展开/收起
+        // ========== 基础交互：移动端菜单 ==========
         const menuBtn = document.getElementById('menuBtn');
         const nav = document.getElementById('nav');
-        menuBtn.onclick = function() {
-            nav.classList.toggle('show');
-            this.innerHTML = nav.classList.contains('show') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        }
+        const header = document.querySelector('.header');
 
-        // 2. 导航栏滚动样式变化
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('.header');
-            if (document.documentElement.scrollTop > 50) {
+        // 移动端菜单切换
+        menuBtn.addEventListener('click', () => {
+            nav.classList.toggle('show');
+            // 切换菜单图标
+            const icon = menuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // 导航栏滚动效果
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
                 header.classList.add('scroll');
             } else {
                 header.classList.remove('scroll');
             }
-            // 滚动时更新导航激活状态
-            updateNavActive();
         });
 
-        // 3. 平滑滚动（点击导航跳转到对应板块）
-        document.querySelectorAll('.nav a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                const headerHeight = document.querySelector('.header').offsetHeight;
-                // 计算滚动位置（避开固定导航栏）
-                const scrollTop = targetElement.offsetTop - headerHeight + 10;
-                
-                window.scrollTo({
-                    top: scrollTop,
-                    behavior: 'smooth'
+        // 导航锚点点击关闭菜单（移动端）
+        const navLinks = document.querySelectorAll('.nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (nav.classList.contains('show')) {
+                    nav.classList.remove('show');
+                    const icon = menuBtn.querySelector('i');
+                    icon.classList.replace('fa-times', 'fa-bars');
+                }
+            });
+        });
+
+        // ========== 接口配置（统一管理，方便后续修改） ==========
+        const API_CONFIG = {
+            // 需求提交接口（替换为你的真实接口地址）
+            demandSubmit: 'https://demand-submit-hjwoxaiomn.cn-hangzhou.fcapp.run',
+            // 工具下载接口（示例，替换为你的真实接口地址）
+            toolDownload: 'https://你的后端接口地址/工具下载接口',
+            // 后续可添加其他接口
+            // newsList: 'https://你的后端接口地址/资讯列表',
+            // toolList: 'https://你的后端接口地址/工具列表'
+        };
+
+        // ========== 工具下载接口（示例，可扩展） ==========
+        const toolDownloadBtns = [
+            document.getElementById('toolDownload1'),
+            document.getElementById('toolDownload2'),
+            document.getElementById('toolDownload3')
+        ];
+
+        toolDownloadBtns.forEach((btn, index) => {
+            if (btn) {
+                btn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    const toolId = index + 1; // 工具ID，根据实际调整
+                    try {
+                        // 工具下载接口请求示例
+                        const response = await fetch(`${API_CONFIG.toolDownload}?toolId=${toolId}`, {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        const result = await response.json();
+                        if (response.ok && result.code === 200) {
+                            // 下载逻辑（示例：跳转下载链接）
+                            if (result.data.downloadUrl) {
+                                window.open(result.data.downloadUrl, '_blank');
+                            } else {
+                                alert('下载链接生成中，请稍后重试！');
+                            }
+                        } else {
+                            alert('下载失败：' + (result.msg || '服务器异常'));
+                        }
+                    } catch (error) {
+                        console.error('工具下载接口请求失败：', error);
+                        alert('下载失败：网络异常，请稍后重试！');
+                    }
+                });
+            }
+        });
+
+        // ========== 需求提交表单接口 ==========
+        const demandForm = document.getElementById('demandForm');
+        const toolName = document.getElementById('toolName');
+        const toolDesc = document.getElementById('toolDesc');
+        const contact = document.getElementById('contact');
+        const toolNameTip = document.getElementById('toolNameTip');
+        const toolDescTip = document.getElementById('toolDescTip');
+        const contactTip = document.getElementById('contactTip');
+
+        // 需求描述字数限制
+        toolDesc.addEventListener('input', () => {
+            const maxLen = 500;
+            const currentLen = toolDesc.value.length;
+            if (currentLen > maxLen) {
+                toolDesc.value = toolDesc.value.substring(0, maxLen);
+                toolDescTip.textContent = `字数超出限制（最多${maxLen}字）`;
+                toolDescTip.style.display = 'block';
+            } else {
+                toolDescTip.textContent = `当前${currentLen}/${maxLen}字`;
+                toolDescTip.style.color = var('--text-gray');
+                toolDescTip.style.display = 'block';
+            }
+        });
+
+        // 表单提交逻辑
+        demandForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            // 清空所有错误提示
+            [toolNameTip, toolDescTip, contactTip].forEach(tip => {
+                tip.textContent = '';
+                tip.style.display = 'none';
+            });
+
+            // 表单验证
+            let isValid = true;
+            if (!toolName.value.trim()) {
+                isValid = false;
+                toolNameTip.textContent = '工具名称不能为空';
+                toolNameTip.style.display = 'block';
+                toolName.focus();
+            }
+            if (!toolDesc.value.trim()) {
+                isValid = false;
+                toolDescTip.textContent = '需求描述不能为空';
+                toolDescTip.style.display = 'block';
+                if (toolName.value.trim()) toolDesc.focus();
+            }
+            // 可选：联系方式格式验证（示例）
+            if (contact.value.trim() && !/^(\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)|(1[3-9]\d{9})$/.test(contact.value.trim())) {
+                isValid = false;
+                contactTip.textContent = '请填写有效的手机号或邮箱';
+                contactTip.style.display = 'block';
+                contact.focus();
+            }
+
+            if (!isValid) return;
+
+            // 组装提交数据
+            const formData = {
+                toolName: toolName.value.trim(),
+                toolDesc: toolDesc.value.trim(),
+                contact: contact.value.trim() || '',
+                submitTime: new Date().toLocaleString()
+            };
+
+            try {
+                // 提交表单到后端接口
+                const response = await fetch(API_CONFIG.demandSubmit, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        // 可选：添加认证信息
+                        // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify(formData)
                 });
 
-                // 手机端点击后收起菜单
-                nav.classList.remove('show');
-                menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                
-                // 导航栏激活状态切换
-                document.querySelectorAll('.nav a').forEach(item => item.classList.remove('active'));
-                this.classList.add('active');
-            });
+                const result = await response.json();
+                if (response.ok && result.code === 200) {
+                    alert('需求提交成功！🎉\n我们会在1-3个工作日内评估需求，并通过预留联系方式反馈进度～');
+                    demandForm.reset();
+                    // 清空字数提示
+                    toolDescTip.textContent = '';
+                    toolDescTip.style.display = 'none';
+                } else {
+                    alert('提交失败：' + (result.msg || '服务器异常'));
+                }
+            } catch (error) {
+                console.error('需求提交接口请求失败：', error);
+                alert('提交失败：网络异常，请稍后重试！');
+            }
         });
 
-        // 4. 滚动时自动更新导航激活状态
-        function updateNavActive() {
-            const sections = document.querySelectorAll('.section, .banner');
-            const navLinks = document.querySelectorAll('.nav a');
-            let currentSection = '';
-
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                const scrollPos = document.documentElement.scrollTop;
-                
-                if (scrollPos >= sectionTop - 100 && scrollPos < sectionTop + sectionHeight - 100) {
-                    currentSection = '#' + section.getAttribute('id');
-                }
-            });
-
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === currentSection) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // 5. 需求表单提交（增强版提示）
-        const demandForm = document.getElementById('demandForm');
-        demandForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // 获取表单值
-            const toolName = document.getElementById('toolName').value.trim();
-            const toolDesc = document.getElementById('toolDesc').value.trim();
-            const contact = document.getElementById('contact').value.trim();
-
-            // 简单验证
-            if (!toolName || !toolDesc) {
-                alert('请填写工具名称和需求描述！');
-                return;
-            }
-
-            // 构建提示信息
-            let alertMsg = `需求提交成功！🎉\n\n`;
-            alertMsg += `工具名称：${toolName}\n`;
-            alertMsg += `需求描述：${toolDesc.substring(0, 50)}${toolDesc.length > 50 ? '...' : ''}\n`;
-            if (contact) {
-                alertMsg += `联系方式：${contact}\n`;
-            }
-            alertMsg += `\n我们会在1-3个工作日内评估需求，并通过预留联系方式反馈进度～`;
-
-            // 提交成功提示
-            alert(alertMsg);
-            
-            // 重置表单
-            this.reset();
-        });
-
-        // 6. 初始化导航激活状态
-        window.addEventListener('load', updateNavActive);
+        // ========== 后续可扩展其他接口示例 ==========
+        // 示例：加载资讯列表
+        // async function loadNewsList() {
+        //     try {
+        //         const response = await fetch(API_CONFIG.newsList);
+        //         const result = await response.json();
+        //         if (response.ok && result.code === 200) {
+        //             // 渲染资讯列表逻辑
+        //             console.log('资讯列表：', result.data);
+        //         }
+        //     } catch (error) {
+        //         console.error('加载资讯列表失败：', error);
+        //     }
+        // }
+        // // 页面加载完成后调用
+        // window.addEventListener('load', loadNewsList);
     </script>
 </body>
 </html>
